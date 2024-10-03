@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => 'v11.1.1',
-        'version' => '11.1.1.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'ea1a2d2ede4cc1906c387f8b5ce44ef74eeda76f',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -380,9 +380,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => 'v11.1.1',
-            'version' => '11.1.1.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'ea1a2d2ede4cc1906c387f8b5ce44ef74eeda76f',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -415,6 +415,24 @@
             'aliases' => array(),
             'dev_requirement' => true,
         ),
+        'laravel/sanctum' => array(
+            'pretty_version' => 'v4.0.2',
+            'version' => '4.0.2.0',
+            'reference' => '9cfc0ce80cabad5334efff73ec856339e8ec1ac1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/sanctum',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'laravel/scout' => array(
+            'pretty_version' => 'v10.11.4',
+            'version' => '10.11.4.0',
+            'reference' => 'f9cf4f79163e3c5f13f81369d4992d66e6700502',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/scout',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'laravel/serializable-closure' => array(
             'pretty_version' => 'v1.3.3',
             'version' => '1.3.3.0',
@@ -430,6 +448,15 @@
             'reference' => '502e0fe3f0415d06d5db1f83a472f0f3b754bafe',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/tinker',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'laravel/ui' => array(
+            'pretty_version' => 'v4.5.2',
+            'version' => '4.5.2.0',
+            'reference' => 'c75396f63268c95b053c8e4814eb70e0875e9628',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravel/ui',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -748,8 +775,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '3.0.0',
+                0 => '3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(

@@ -1,0 +1,27 @@
+{
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "vite-build": "vite build",
+        "serve": "vue-cli-service serve",
+        "vue-build": "vue-cli-service build resources/js",
+        "build": "npm run vite-build",
+        "build-watch": "vite build --watch --config ./vite.config.js --mode development",
+        "lint": "vue-cli-service lint"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^5.1.4",
+        "@vue/cli-service": "^5.0.8",
+        "axios": "^1.7.4",
+        "concurrently": "^9.0.1",
+        "laravel-vite-plugin": "^1.0.5",
+        "vite": "^5.4.8"
+    },
+    "dependencies": {
+        "vite-plugin-vue-devtools": "^7.4.6",
+        "vue-router": "^4.4.5",
+        "vuex": "^4.1.0",
+        "vuex-persistedstate": "^4.1.0"
+    }
+}

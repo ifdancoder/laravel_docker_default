@@ -93,7 +93,7 @@ class ValidationRuleParser
         if (is_object($rule)) {
             return Arr::wrap($this->prepareRule($rule, $attribute));
         }
-
+        
         return array_map(
             [$this, 'prepareRule'],
             $rule,
