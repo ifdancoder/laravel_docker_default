@@ -49,4 +49,12 @@ class EquipmentTypeService
         $createdEquipmentType = $equipmentType->delete();
         return $createdEquipmentType;
     }
+    public function show($id) 
+    {
+        $equipmentType = EquipmentType::find($id);
+        if (!$equipmentType) {
+            return null;
+        }
+        return new EquipmentTypeResource($equipmentType);
+    }
 }

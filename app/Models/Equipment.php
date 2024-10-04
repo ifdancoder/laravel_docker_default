@@ -14,6 +14,7 @@ class Equipment extends Model
     protected $fillable = [
         'equipment_type_id',
         'serial_number',
+        'description',
     ];
 
     protected $casts = [

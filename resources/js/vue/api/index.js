@@ -22,23 +22,35 @@ apiClient.interceptors.response.use(
         if (error.response && error.response.data) {
             let errors = error.response.data;
             let success = [];
-            if (errors.message && errors.message.errors) {
-                if (errors.message.success) {
-                    success = errors.message.success;
+            if (errors && errors.errors) {
+                if (errors.success) {
+                    success = errors.success;
                 }
-                errors = errors.message.errors;
+                errors = errors.errors;
             }
             const componentInstance = error.config.vueComponentInstance;
             Object.keys(errors).forEach((key) => {
                 if (componentInstance && componentInstance.value.form && key in componentInstance.value.form) {
-                    componentInstance.value.errors[key] = errors[key].join('. ');
+                    if (Array.isArray(errors[key])) {
+                        componentInstance.value.errors[key] = errors[key].join('. ');
+                    } else if (typeof errors[key] === 'object') {
+                        componentInstance.value.errors[key] = JSON.stringify(errors[key]);
+                    } else {
+                        componentInstance.value.errors[key] = errors[key];
+                    }
                 } else {
                     console.log('flashes ' + key);
                 }
             });
             Object.keys(success).forEach((key) => {
                 if (componentInstance && componentInstance.value.form && key in componentInstance.value.form) {
-                    componentInstance.value.success[key] = success[key].join('. ');
+                    if (Array.isArray(success[key])) {
+                        componentInstance.value.success[key] = success[key].join('. ');
+                    } else if (typeof success[key] === 'object') {
+                        componentInstance.value.success[key] = JSON.stringify(success[key]);
+                    } else {
+                        componentInstance.value.success[key] = success[key];
+                    }
                 } else {
                     console.log('flashes ' + key);
                 }

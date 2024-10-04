@@ -22,17 +22,22 @@ class EquipmentTypeController
      */
     public function index(EquipmentTypeSearchRequest $request)
     {
-        return $this->equipmentTypeService->index($request->validated());
+        $equipmentTypes =  $this->equipmentTypeService->index($request->validated());
+
+        if (!$equipmentTypes) {
+            return response()->json($equipmentTypes, 500);
+        }
+        return response()->json($equipmentTypes, 200);
     }
 
     public function store(EquipmentTypeRequest $request)
     {
         $created = $this->equipmentTypeService->create($request->validated());
         
-        if ($created) {
-            return response()->json(['success' => true, 'message' => 'Тип оборудования был создан'], 200);
+        if (!$created) {
+            return response()->json('Тип оборудования не был создан', 500);
         }
-        return response()->json(['success' => false, 'message' => 'Тип оборудования не был создан'], 500);
+        return response()->json($created, 200);
     }
 
     public function destroy(int $id)
@@ -40,8 +45,8 @@ class EquipmentTypeController
         $result = $this->equipmentTypeService->destroy($id);
 
         if ($result) {
-            return response()->json(['success' => true, 'message' => 'Запись данного типа оборудования была удалена'], 200);
+            return response()->json('Запись данного типа оборудования была удалена', 200);
         }
-        return response()->json(['success' => false, 'message' => 'Запись данного типа оборудования не была найдена'], 500);
+        return response()->json('Запись данного типа оборудования не была найдена', 500);
     }
 }

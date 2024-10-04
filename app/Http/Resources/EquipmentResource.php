@@ -23,6 +23,7 @@ class EquipmentResource extends JsonResource
                 "mask" => $this->equipmentType->serial_number_mask
             ],
             "serial_number" => $this->serial_number,
+            "description" => $this->description,
             "created_at" => $this->created_at,
             "updated_at" => $this->updated_at
         ];

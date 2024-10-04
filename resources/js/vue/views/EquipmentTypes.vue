@@ -47,7 +47,7 @@
                 </div>
                 <div class="card-table table-responsive" style="min-height: 50vh;">
                     <table class="table table-vcenter">
-                        <thead v-if="equipment_types.length">
+                        <thead v-if="!!Object.keys(equipment_types).length">
                             <tr>
                                 <th>ID</th>
                                 <th>Название типа оборудования</th>
@@ -60,16 +60,16 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        <tbody v-if="equipment_types.length">
-                            <tr v-for="equipment in equipment_types" :key="equipment.id">
+                        <tbody v-if="!!Object.keys(equipment_types).length" >
+                            <tr v-for="equipment_type in equipment_types" :key="equipment.id">
                                 <td class="w-1">
-                                    {{ equipment.id }}
+                                    {{ equipment_type.id }}
                                 </td>
                                 <td class="td-truncate">
-                                    {{ equipment.name }}
+                                    {{ equipment_type.name }}
                                 </td>
                                 <td class="text-nowrap text-secondary">
-                                    {{ equipment.mask }}
+                                    {{ equipment_type.mask }}
                                 </td>
                                 <td>
                                     <div class="btn-list flex-nowrap">
@@ -80,7 +80,7 @@
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-end">
                                                 <button class="dropdown-item"
-                                                    @click="deleteEquipmentType(equipment.id)">
+                                                    @click="deleteEquipmentType(equipment_type.id)">
                                                     Удалить
                                                 </button>
                                             </div>
@@ -98,7 +98,7 @@
                         </tbody>
                     </table>
                 </div>
-                <Pagination v-if="equipment_types.length" :meta="meta" :links="links"
+                <Pagination v-if="!!Object.keys(equipment_types).length" :meta="meta" :links="links"
                     @fetchFromUrl="fetchEquipmentTypesByPage" />
             </div>
         </div>
@@ -164,6 +164,7 @@ export default {
                     { vueComponentInstance: ref(this) }
                 ).then(
                     (response) => {
+                        console.log(this.equipment_types);
                         this.equipment_types = response.data.data;
                         this.meta = response.data.meta;
                         this.links = response.data.links;

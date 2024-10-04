@@ -65,7 +65,7 @@
                                     {{ equipment.id }}
                                 </td>
                                 <td class="td-truncate">
-                                    {{ equipment.equipment_type.name + ' (ID: ' + equipment.equipment_type.id + ', маска: ' + equipment.equipment_type.mask + ')' }}
+                                    {{ equipment.equipment_type.name + ' (ID: ' + equipment.equipment_type.id + ',маска: ' + equipment.equipment_type.mask + ')' }}
                                 </td>
                                 <td class="text-nowrap text-secondary">
                                     {{ equipment.serial_number }}
@@ -81,10 +81,8 @@
                                                 Действия
                                             </button>
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <a class="dropdown-item" href="">
-                                                    Редактировать
-                                                </a>
-                                                <button class="dropdown-item">
+                                                <router-link :to="{ name: 'equipments_edit', params: { id: equipment.id } }" class="dropdown-item">Редактировать</router-link>
+                                                <button @click="deleteEquipment(equipment.id)" class="dropdown-item">
                                                     Удалить
                                                 </button>
                                             </div>
@@ -132,9 +130,9 @@ export default {
     methods: {
         async fetchEquipmentsByPage(url) {
             this.errors = {};
-            let data = { params: { perPage:  this.perPage } };
+            let data = { params: { perPage: this.perPage } };
             if (this.q) {
-                data = { params: { q: this.q, perPage:  this.perPage } };
+                data = { params: { q: this.q, perPage: this.perPage } };
             }
             try {
                 const response = await apiClient.get(url,
@@ -156,9 +154,9 @@ export default {
         },
         async fetchEquipments() {
             this.errors = {};
-            let data = { params: { perPage:  this.perPage } };
+            let data = { params: { perPage: this.perPage } };
             if (this.q) {
-                data = { params: { q: this.q, perPage:  this.perPage } };
+                data = { params: { q: this.q, perPage: this.perPage } };
             }
             try {
                 const response = await apiClient.get(

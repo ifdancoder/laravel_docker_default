@@ -1,31 +1,24 @@
 <template>
     <div class="m-3">
         <div class="container">
+            <div class="d-flex justify-content-center mb-4">
+                <h2 class="page-title">Добавление оборудования</h2>
+            </div>
+
             <button class="btn btn-outline-primary mb-3" @click="showForm = !showForm">
                 Добавить оборудование
             </button>
 
-            <div v-if="showForm" class="card">
+            <div v-if="showForm" class="card mt-2">
                 <form @submit.prevent="addEquipment">
                     <div class="card-body">
                         <h2 class="card-title text-center mb-4">Добавить оборудование</h2>
                         <div class="mb-3 row">
-                            <label class="col-sm-3 col-form-label">Название оборудования</label>
-                            <div class="col-sm-9">
-                                <input type="text" :class="{ 'is-invalid': errors.name }" v-model="equipment.name"
-                                    class="form-control" placeholder="Название оборудования">
-                                <span v-if="errors.name" class="invalid-feedback" role="alert">
-                                    <strong>
-                                        {{ errors.name }}
-                                    </strong>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="mb-3 row">
                             <label class="col-sm-3 col-form-label">Примечание</label>
                             <div class="col-sm-9">
                                 <textarea type="text" :class="{ 'is-invalid': errors.description }"
-                                    v-model="equipment.description" class="form-control" placeholder="Описание" />
+                                    v-model="equipment.description" class="form-control"
+                                    placeholder="Описание"></textarea>
                                 <span v-if="errors.description" class="invalid-feedback" role="alert">
                                     <strong>
                                         {{ errors.description }}
@@ -65,12 +58,14 @@
             </div>
 
             <div v-if="form.length" class="mt-4">
-                <h3 class="text-center mb-3">Список добавленного оборудования</h3>
+
+                <div class="d-flex justify-content-center mb-4">
+                    <h2 class="page-title">Временный список оборудования</h2>
+                </div>
                 <table class="table">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Название</th>
                             <th>Описание</th>
                             <th>Тип оборудования</th>
                             <th>Серийный номер</th>
@@ -80,7 +75,6 @@
                     <tbody>
                         <tr v-for="(item, index) in form" :key="index">
                             <td>{{ index }}</td>
-                            <td>{{ item.name }}</td>
                             <td>{{ item.description }}</td>
                             <td>{{ item.equipment_type_id }}</td>
                             <td>{{ item.serial_number }}</td>
@@ -91,28 +85,31 @@
                     </tbody>
                 </table>
 
-                <div v-if="!!Object.keys(errors).length" class="card">
-                    <div class="card-body">
-                        <div class="alert alert-danger" role="alert">
-                            <div v-for="(index, key) in errors" :key="index">
-                                {{ key + ': ' + errors[key] }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div v-if="!!Object.keys(success).length" class="card">
-                    <div class="card-body">
-                        <div class="alert alert-success" role="alert">
-                            <div v-for="(index, key) in success" :key="index">
-                                {{ key + ': ' + success[key] }}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="text-center mt-4">
                     <button class="btn btn-success" @click="submitEquipments">Отправить список на сервер</button>
+                </div>
+
+                <div v-if="!!Object.keys(errors).length || !!Object.keys(success).length" class="card mt-4">
+                    <div v-if="!!Object.keys(success).length" class="card mb-3">
+                        <div class="card-header">Успешно добавленное оборудование</div>
+                        <div class="card-body">
+                            <div class="alert alert-success" role="alert">
+                                <div v-for="(index, key) in success" :key="index">
+                                    {{ key + ': ' + success[key] }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="!!Object.keys(errors).length" class="card">
+                        <div class="card-header">Ошибки при добавлении</div>
+                        <div class="card-body">
+                            <div class="alert alert-danger" role="alert">
+                                <div v-for="(index, key) in errors" :key="index">
+                                    {{ key + ': ' + errors[key] }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -130,7 +127,6 @@ export default {
         return {
             showForm: false,
             equipment: {
-                name: '',
                 equipment_type_id: 1,
                 serial_number: '',
                 description: ''
@@ -144,18 +140,14 @@ export default {
     },
     methods: {
         addEquipment() {
-            if (this.equipment.name && this.equipment.equipment_type_id) {
+            if (this.equipment.serial_number && this.equipment.equipment_type_id) {
                 this.form.push({ ...this.equipment });
-                this.equipment.name = '';
                 this.equipment.description = '';
                 this.equipment.equipment_type_id = this.equipment_types[0].id || 1;
                 this.equipment.serial_number = '';
                 this.showForm = false;
             }
             else {
-                if (!this.equipment.name) {
-                    this.form_errors.name = 'Обязательное поле';
-                }
                 if (!this.equipment.equipment_type_id) {
                     this.form_errors.equipment_type_id = 'Обязательное поле';
                 }
@@ -192,7 +184,7 @@ export default {
                 { vueComponentInstance: ref(this) }
             ).then(
                 (response) => {
-                    this.equipment_types = response.data;
+                    this.equipment_types = response.data.message;
                     this.equipment.equipment_type_id = this.equipment_types[0].id || 1;
                 }
             ).catch(

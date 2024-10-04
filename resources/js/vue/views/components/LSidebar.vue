@@ -14,50 +14,6 @@
                     </router-link>
                 </div>
             </h1>
-            <div class="d-lg-none col-6">
-                <div class="nav-item dropdown">
-                    <a class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown"
-                        aria-label="Open user menu">
-                        <div class="row">
-                            <div class="col">
-                                <div class="small text-secondary text-center text-wrap">
-                                    Иванов Иван
-                                </div>
-                                <div class="text-center text-wrap">
-                                    ivanovivan@example.com
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                        <a href="" class="dropdown-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-user">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0" />
-                                <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
-                            </svg>
-                            &nbspПрофиль
-                        </a>
-                        <form method="POST" action="">
-                            <button type="submit" class="dropdown-item">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    class="icon icon-tabler icons-tabler-outline icon-tabler-door-exit">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                    <path d="M13 12v.01" />
-                                    <path d="M3 21h18" />
-                                    <path d="M5 21v-16a2 2 0 0 1 2 -2h7.5m2.5 10.5v7.5" />
-                                    <path d="M14 7h7m-3 -3l3 3l-3 3" />
-                                </svg>
-                                &nbspВыйти
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
             <div class="collapse navbar-collapse" id="sidebar-menu">
                 <ul class="navbar-nav">
                     <li class="nav-item" :class="{ 'active': currentRouteName === 'equipments' }">
@@ -99,6 +55,26 @@
                             </span>
                             <span class="nav-link-title">
                                 Типы оборудования
+                            </span>
+                        </router-link>
+                    </li>
+                    <li class="nav-item" :class="{ 'active': currentRouteName === 'equipments_add' }">
+                        <router-link class="nav-link" :to="{ name: 'equipments_add' }" :class="{ 'active': currentRouteName === 'equipments_add' }">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 5l0 14" /><path d="M5 12l14 0" /></svg>
+                            </span>
+                            <span class="nav-link-title">
+                                Добавить оборудование
+                            </span>
+                        </router-link>
+                    </li>
+                    <li class="nav-item" :class="{ 'active': currentRouteName === 'equipment_types_add' }">
+                        <router-link class="nav-link" :to="{ name: 'equipment_types_add' }" :class="{ 'active': currentRouteName === 'equipment_types_add' }">
+                            <span class="nav-link-icon d-md-none d-lg-inline-block">
+                                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-text-plus"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M19 10h-14" /><path d="M5 6h14" /><path d="M14 14h-9" /><path d="M5 18h6" /><path d="M18 15v6" /><path d="M15 18h6" /></svg>
+                            </span>
+                            <span class="nav-link-title">
+                                Добавить типы оборудования
                             </span>
                         </router-link>
                     </li>

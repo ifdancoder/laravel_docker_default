@@ -33,17 +33,22 @@ class EquipmentController
         $result = $this->equipmentService->create($request);
 
         if ($result && array_key_exists('errors', $result)) {
-            return response()->json(['success' => false, 'message' => $result], 500);
+            return response()->json((object) $result, 500);
         }
-        return response()->json(['success' => true, 'message' => $result], 200);
+        return response()->json((object) $result, 200);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Equipment $equipment)
+    public function show(int $id)
     {
-        //
+        $result = $this->equipmentService->show($id);
+
+        if ($result) {
+            return response()->json((object) $result, 200);
+        }
+        return response()->json('Запись данного оборудования не была найдена', 500);
     }
 
     /**
@@ -62,8 +67,8 @@ class EquipmentController
         $result = $this->equipmentService->destroy($id);
 
         if ($result) {
-            return response()->json(['success' => true, 'message' => 'Запись данного оборудования была удалена'], 200);
+            return response()->json('Запись данного оборудования была удалена', 200);
         }
-        return response()->json(['success' => false, 'message' => 'Запись данного оборудования не была найдена'], 500);
+        return response()->json('Запись данного оборудования не была найдена', 500);
     }
 }

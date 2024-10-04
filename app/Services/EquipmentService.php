@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Support\Facades\Validator;
 
 use App\Http\Resources\EquipmentCollection;
+use App\Http\Resources\EquipmentResource;
 use App\Models\Equipment;
 use App\Http\Requests\EquipmentRequest;
 use App\Validators\EquipmentValidator;
@@ -43,7 +44,7 @@ class EquipmentService
     {
         $equipments = $request->input('equipments');
         $validatedEquipments = [];
-        $errors = [];
+        $errors = new \stdClass();
 
         foreach ($equipments as $key => $equipment) {
             $validator = new EquipmentValidator();
@@ -51,27 +52,30 @@ class EquipmentService
             if ($result) {
                 $validatedEquipments[$key] = $equipment;
             } else {
-                $errors[$key] = $validator->errors();
+                $errors->$key = $validator->errors();
             }
             unset($validator);
         }
         
-        $success = [];
+        $success = new \stdClass();
         foreach ($validatedEquipments as $key => $equipment) {
             $created = Equipment::create($equipment);
             if ($created) {
-                $success[$key] = $created;
+                $success->$key = new EquipmentResource($created);
             } else {
-                $errors[$key] = 'Failed to create equipment';
+                $errors->$key = 'Failed to create equipment';
             }
             unset($validatedEquipments[$key]);
         }
-
-        return ['success' => $success, 'errors' => $errors];
+        return ['success' => (object) $success, 'errors' => (object) $errors];
     }
 
-    public function update(Equipment $equipment, array $data)
+    public function update($id, array $data)
     {
+        $equipment = Equipment::find($id);
+        if (!$equipment) {
+            return null;
+        }
         $equipment->update($data);
         return $equipment;
     }
@@ -86,8 +90,12 @@ class EquipmentService
         return $createdEquipment;
     }
 
-    public function find($id)
+    public function show(int $id)
     {
-        return Equipment::find($id);
+        $equipment = Equipment::find($id);
+        if (!$equipment) {
+            return null;
+        }
+        return new EquipmentResource($equipment);
     }
 }

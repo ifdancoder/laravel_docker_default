@@ -8,6 +8,8 @@ import EquipmentTypes from './views/EquipmentTypes.vue';
 import EquipmentTypeAdd from './views/EquipmentTypeAdd.vue';
 import EquipmentsAdd from './views/EquipmentsAdd.vue';
 
+import EquipmentsEdit from './views/EquipmentsEdit.vue';
+
 const routes = [
     {
         path: '/',
@@ -23,9 +25,6 @@ const routes = [
                 path: 'equipment-types',
                 name: 'equipment_types',
                 component: EquipmentTypes,
-                children: [
-                    
-                ]
             },
             {
                 path: 'equipment-types/add',
@@ -36,6 +35,11 @@ const routes = [
                 path: 'equipments/add',
                 name: 'equipments_add',
                 component: EquipmentsAdd
+            },
+            {
+                path: 'equipments/:id',
+                name: 'equipments_edit',
+                component: EquipmentsEdit
             }
         ]
     }
